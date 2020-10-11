@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:QRCodeGen/services/getdetails_service.dart';
 import 'package:QRCodeGen/viewmodel/details_viewmodel.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,8 +45,7 @@ class _UserListState extends State<UserList> {
 
   bool list = true;
   String name = '';
-  final fileUrl =
-      "";
+  final fileUrl = "";
   var dio = Dio();
 
   Future download2(Dio dio, String url, String savePath) async {
@@ -147,16 +147,16 @@ class _UserListState extends State<UserList> {
               Container(
                   height: 150,
                   width: 150,
-                  color: Colors.black,
                   child: ClipRect(
                     child: Align(
-                      alignment: Alignment.topCenter,
-                      heightFactor: 1.0,
-                      child: Image.asset(
-                        'assets/logoQR.png',
-                        scale: 3.0,
-                      ),
-                    ),
+                        alignment: Alignment.topCenter,
+                        heightFactor: 1.0,
+                        child: QrImage(
+                          data: '$name',
+                          version: QrVersions.auto,
+                          size: 320,
+                          gapless: false,
+                        )),
                   )),
               Padding(
                 padding: const EdgeInsets.all(8.0),
